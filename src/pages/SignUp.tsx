@@ -1,8 +1,14 @@
-import React, { FormEvent } from 'react'
+import React, { ChangeEvent, FormEvent, useState } from 'react'
 import { Link } from 'react-router-dom';
 import login from '../assets/login.jpg';
 
 const SignUp = () => {
+
+    const [formData,setFormData] = useState({});
+
+    const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
+        setFormData({...formData,[e.target.id]:e.target.value})
+    }
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -34,18 +40,18 @@ const SignUp = () => {
                     <form onSubmit={handleSubmit} className="space-y-4">
                         <div>
                             <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username</label>
-                            <input type="text" id="username" name="username" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                            <input type="text" id="username" name="username" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                         </div>
                         <div>
                             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
-                            <input type="text" id="email" name="email" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                            <input type="text" id="email" name="email" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                         </div>
                         <div>
                             <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password</label>
-                            <input type="password" id="password" name="password" className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
+                            <input type="password" id="password" name="password" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                         </div>
                         <div>
-                            <button type="submit" className="w-full bg-blue-700 text-white p-2 rounded-md hover:bg-blue-800 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
+                            <button type="submit" className="w-full bg-[#22bc1a] text-white p-2 rounded-md hover:bg-blue-800 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
                         </div>
                     </form>
                     <div className="mt-4 text-sm text-gray-600 text-center">
