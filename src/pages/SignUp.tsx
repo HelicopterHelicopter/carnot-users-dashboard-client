@@ -1,10 +1,18 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import login from '../assets/login.jpg';
+import { useDispatch, useSelector } from 'react-redux';
+import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSlice';
+import { signUp } from '../utils/api-communicator';
+import { IRootState } from '../redux/store';
 
 const SignUp = () => {
 
-    const [formData,setFormData] = useState({});
+    const [formData,setFormData] = useState<any>({});
+
+    const {loading,error} = useSelector((state:IRootState)=>state.user);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handleChange = (e:ChangeEvent<HTMLInputElement>) => {
         setFormData({...formData,[e.target.id]:e.target.value})
@@ -12,6 +20,16 @@ const SignUp = () => {
 
     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        try{
+            dispatch(signInStart());
+            const data = await signUp(formData.username,formData.email,formData.password);
+            if(data){
+                signInSuccess(data);
+                navigate('/users');
+            }
+        }catch(e){
+            signInFailure(e);
+        }
     }
 
     return (
@@ -51,7 +69,7 @@ const SignUp = () => {
                             <input type="password" id="password" name="password" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-300 transition-colors duration-300" />
                         </div>
                         <div>
-                            <button type="submit" className="w-full bg-[#22bc1a] text-white p-2 rounded-md hover:bg-blue-800 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
+                            <button disabled={loading} type="submit" className="w-full bg-[#22bc1a] text-white p-2 rounded-md hover:bg-blue-800 focus:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-900 transition-colors duration-300">Sign Up</button>
                         </div>
                     </form>
                     <div className="mt-4 text-sm text-gray-600 text-center">

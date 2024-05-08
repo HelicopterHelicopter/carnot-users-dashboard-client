@@ -5,3 +5,5 @@ export const store = configureStore({
     reducer:{user:userReducer},
     middleware: (getDefaultMiddleware)=> getDefaultMiddleware({serializableCheck:false}),
 });
+
+export type IRootState = ReturnType<typeof store.getState>
