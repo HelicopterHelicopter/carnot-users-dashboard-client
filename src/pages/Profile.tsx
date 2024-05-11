@@ -2,28 +2,61 @@ import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "reac
 import { getUserProfileDetails, updateUserProfile, uploadProfileImage } from "../utils/api-communicator";
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
 
+type UserProfile = {
+    username:string,
+    name:string,
+    dob:string,
+    gender:string,
+    mobileNo:string,
+    address:string,
+    profilePicUrl:string
+}
+
 const Profile = () => {
     const fileRef = useRef(null);
     //const {currentUser,loading,error} = useSelector((state:IRootState)=>state.user)
     const [image, setImage] = useState<string>("");
-    const [userDetails, setUserDetails] = useState<any>({
+    const [userDetails, setUserDetails] = useState<UserProfile>({
         name: "",
-        dob: "",
+        dob: null,
         address: "",
-        mobileNo: ""
+        mobileNo: "",
+        gender:"",
+        profilePicUrl:"",
+        username:""
     });
+
+    const getDateString = (fullDate:Date) => {
+        let date = fullDate.getDate();
+        let month = fullDate.getMonth() + 1;
+        const year = fullDate.getFullYear();
+
+        let dateStr = date.toString();
+        let monthStr = month.toString();
+
+        if(date<10){
+            dateStr = '0'+date.toString();
+        }
+        if(month<10){
+            monthStr = '0'+month.toString();
+        }
+
+        return year.toString() + "-" + monthStr + "-" + dateStr;
+    }
 
     useEffect(() => {
         const getUserDetails = async () => {
             const data = await getUserProfileDetails();
             if (data) {
-                setUserDetails(data.userDetails);
+                setUserDetails({...data.userDetails,dob:getDateString(new Date(data.userDetails.dob))});
                 setImage(data.userDetails.profilePicUrl ?? "");
             }
         }
 
         getUserDetails();
     }, []);
+
+    
 
     const uploadProfilePic = async (e: ChangeEvent<HTMLInputElement>) => {
         try {
@@ -74,7 +107,7 @@ const Profile = () => {
                     </div>
                     <div>
                         <label htmlFor="dob" className="block text-sm font-medium text-gray-700">DOB</label>
-                        <input defaultValue={userDetails.dob} type="date" id="dob" name="dob" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#22bc1a] transition-colors duration-300" />
+                        <input defaultValue={userDetails.dob??""} type="date" id="dob" name="dob" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#22bc1a] transition-colors duration-300" />
                     </div>
                     <div>
                         <Listbox value={userDetails.gender} onChange={handleGenderListbox}>
