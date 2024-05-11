@@ -33,7 +33,7 @@ const Users = () => {
         handleGetUsers();
     }, [currentPage]);
     return (
-        <div className="w-full bg-[#1ABC9C]">
+        <div className="w-full h-screen bg-[#1ABC9C]">
             <div className="flex w-full items-center justify-between">
                 <h1 className="text-2xl">Users</h1>
             </div>

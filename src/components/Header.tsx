@@ -1,16 +1,31 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/carnotLogo.png";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, DialogPanel } from "@headlessui/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../redux/store";
 import ProfileDropdown from "./ProfileDropdown";
+import { logout } from "../utils/api-communicator";
+import { signOut } from "../redux/user/userSlice";
 
 const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean | undefined>(false);
 
     const { currentUser } = useSelector((state: IRootState) => state.user);
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        const data =  await logout();
+
+        if(data){
+            dispatch(signOut());
+            setMobileMenuOpen(false);
+            navigate("/login");
+        }
+    };
 
     return (
         <header className="bg-white">
@@ -51,7 +66,14 @@ const Header = () => {
                             </button>
                         </div>
                         {currentUser ? (
-                            <div>Logged In</div>
+                            <div className="py-6">
+                            <Link to={"/profile"} onClick={()=>setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                My Profile
+                            </Link>
+                            <div onClick={handleLogout} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
+                                Sign Out
+                            </div>
+                        </div>
                         ) : (<div className="py-6">
                             <Link to={"/login"} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
                                 Log in

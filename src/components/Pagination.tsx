@@ -80,11 +80,11 @@ const generatePagination = (currentPage: number, totalPages: number) => {
 
 const PaginationNumber = ({ page, href, isActive, position }: { page: number | string; href: string; position?: 'first' | 'last' | 'middle' | 'single'; isActive: boolean }) => {
     const className = clsx(
-        'flex h-10 w-10 items-center justify-center text-sm border',
+        'flex h-10 w-10 items-center justify-center text-sm border bg-white',
         {
             'rounded-l-md': position === 'first' || position === 'single',
             'rounded-r-md': position === 'last' || position === 'single',
-            'z-10 bg-blue-600 border-blue-600 text-white': isActive,
+            'z-10 bg-blue-600 border-blue-600': isActive,
             'hover:bg-gray-100': !isActive && position !== 'middle',
             'text-gray-300': position === 'middle',
         },
@@ -99,7 +99,7 @@ const PaginationNumber = ({ page, href, isActive, position }: { page: number | s
 
 const PaginationArrow = ({ href, direction, isDisabled }: { href: string; direction: 'left' | 'right'; isDisabled?: boolean }) => {
     const className = clsx(
-        'flex h-10 w-10 items-center justify-center rounded-md border',
+        'flex h-10 w-10 items-center justify-center rounded-md border bg-white',
         {
             'pointer-events-none text-gray-300': isDisabled,
             'hover:bg-gray-100': !isDisabled,
