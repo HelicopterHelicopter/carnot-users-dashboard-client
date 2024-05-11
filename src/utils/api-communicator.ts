@@ -82,3 +82,13 @@ export const logout = async () => {
     const data = await res.data;
     return data;
 }
+
+export const googleSignin = async (access_token:string) => {
+    const res = await axios.post("/auth/google",{token:access_token});
+    if(res.status!==200){
+        throw new Error("Error in signing in");
+    }
+    
+    const data = await res.data;
+    return data;
+}
