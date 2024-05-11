@@ -20,12 +20,14 @@ const SignIn = () => {
     }
 
     const handleSubmit = async (e:FormEvent<HTMLFormElement>)=> {
+        console.log("testing");
         e.preventDefault();
+        
         try{
             dispatch(signInStart());
             const data = await loginUser(formData.username,formData.password);
             if(data){
-                dispatch(signInSuccess(data));
+                dispatch(signInSuccess(data.userDetails));
                 navigate("/users");
             }
         }catch(e){
