@@ -28,7 +28,7 @@ const ProfileDropdown = () => {
     };
     
     return (
-        <div className="hidden lg:block lg:justify-end relative">
+        <div className="hidden lg:block lg:justify-end relative z-10">
             <div className="flex items-center cursor-pointer" onClick={toggleDropdown}>
                 <img src={currentUser.profilePic??""} alt="Profile" className="w-8 h-8 rounded-full mr-2" />
                 <span className="text-gray-800 font-medium">{currentUser.username}</span>
