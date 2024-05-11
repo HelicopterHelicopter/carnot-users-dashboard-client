@@ -11,7 +11,6 @@ const Header = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean | undefined>(false);
 
     const { currentUser } = useSelector((state: IRootState) => state.user);
-    console.log(currentUser);
 
     return (
         <header className="bg-white">

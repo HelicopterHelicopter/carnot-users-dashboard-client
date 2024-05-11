@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { getUsers } from "../utils/api-communicator";
 import Pagination from "../components/Pagination";
 import { useSearchParams } from "react-router-dom";
+import { UsersTableSkeleton } from "../components/Skeletons";
 
 const Users = () => {
 
@@ -9,15 +10,19 @@ const Users = () => {
     const [totalPages, setTotalPages] = useState<number>(0);
 
     const [searchParams, setSearchParams] = useSearchParams();
+    const [loading,setLoading] = useState<boolean>(false);
 
     const currentPage = Number(searchParams.get('page')) || 1;
 
     const handleGetUsers = async () => {
+        setLoading(true);
         const data = await getUsers(currentPage);
         if (data.message === "OK") {
             setUsers(data.users);
             setTotalPages(Math.ceil(data.totalCount / 10));
         }
+
+        setLoading(false);
     }
 
     useEffect(() => {
@@ -32,7 +37,10 @@ const Users = () => {
             <div className="flex w-full items-center justify-between">
                 <h1 className="text-2xl">Users</h1>
             </div>
-            <div className="mt-6 flow-root p-6">
+            {loading?(
+                <UsersTableSkeleton/>
+            ):(
+                <div className="mt-6 flow-root p-6">
                 <div className="inline-block min-w-full align-middle">
                     <div className="rounded-lg bg-gray-50 p-2 md:pt-0">
                         <table className="min-w-full text-gray-900">
@@ -75,6 +83,8 @@ const Users = () => {
                     </div>
                 </div>
             </div>
+            )}
+            
             <div className="mt-5 flex w-full justify-center">
                 <Pagination totalPages={totalPages} />
             </div>
