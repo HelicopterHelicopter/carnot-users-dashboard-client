@@ -1,15 +1,17 @@
 import React, { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { getUserProfileDetails, updateUserProfile, uploadProfileImage } from "../utils/api-communicator";
 import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@headlessui/react";
+import { getDateString } from "../utils/dateUtil";
+import toast from "react-hot-toast";
 
 type UserProfile = {
-    username:string,
-    name:string,
-    dob:string,
-    gender:string,
-    mobileNo:string,
-    address:string,
-    profilePicUrl:string
+    username: string,
+    name: string,
+    dob: string,
+    gender: string,
+    mobileNo: string,
+    address: string,
+    profilePicUrl: string
 }
 
 const Profile = () => {
@@ -21,53 +23,45 @@ const Profile = () => {
         dob: null,
         address: "",
         mobileNo: "",
-        gender:"",
-        profilePicUrl:"",
-        username:""
+        gender: "",
+        profilePicUrl: "",
+        username: ""
     });
 
-    const getDateString = (fullDate:Date) => {
-        let date = fullDate.getDate();
-        let month = fullDate.getMonth() + 1;
-        const year = fullDate.getFullYear();
 
-        let dateStr = date.toString();
-        let monthStr = month.toString();
-
-        if(date<10){
-            dateStr = '0'+date.toString();
-        }
-        if(month<10){
-            monthStr = '0'+month.toString();
-        }
-
-        return year.toString() + "-" + monthStr + "-" + dateStr;
-    }
 
     useEffect(() => {
         const getUserDetails = async () => {
-            const data = await getUserProfileDetails();
-            if (data) {
-                setUserDetails({...data.userDetails,dob:getDateString(new Date(data.userDetails.dob))});
-                setImage(data.userDetails.profilePicUrl ?? "");
+            try {
+                const data = await getUserProfileDetails();
+                if (data) {
+                    setUserDetails({ ...data.userDetails, dob: getDateString(new Date(data.userDetails.dob)) });
+                    setImage(data.userDetails.profilePicUrl ?? "");
+                }
+            } catch (e) {
+
             }
+
         }
 
         getUserDetails();
     }, []);
 
-    
+
 
     const uploadProfilePic = async (e: ChangeEvent<HTMLInputElement>) => {
         try {
+            toast.loading("Uploading profile pic", { id: "upload" });
             if (e.target.files && e.target.files.length > 0) {
                 const data = await uploadProfileImage(e.target.files[0]);
                 if (data && data.message === "OK") {
                     setImage(data.profilePicUrl);
+                    toast.success("Profile picture update successfully", { id: "upload" });
                 }
             }
         } catch (e) {
             console.log(e);
+            toast.error("Error in uploading profile pic", { id: "upload" });
         }
 
     }
@@ -78,16 +72,23 @@ const Profile = () => {
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const data = await updateUserProfile(userDetails);
-        if (data) {
+        try {
+            toast.loading("Updating profile",{id:"update"});
+            const data = await updateUserProfile(userDetails);
+            if (data) {
+                toast.success("Profile updated successfully",{id:"update"});
+            }
 
+        } catch (e) {
+            toast.error("Error in updating profile",{id:"update"});
         }
+
     }
 
 
     const handleGenderListbox = (e) => {
         console.log(e);
-        setUserDetails({...userDetails,gender:e});
+        setUserDetails({ ...userDetails, gender: e });
     }
 
 
@@ -107,7 +108,7 @@ const Profile = () => {
                     </div>
                     <div>
                         <label htmlFor="dob" className="block text-sm font-medium text-gray-700">DOB</label>
-                        <input defaultValue={userDetails.dob??""} type="date" id="dob" name="dob" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#22bc1a] transition-colors duration-300" />
+                        <input defaultValue={userDetails.dob ?? ""} type="date" id="dob" name="dob" onChange={handleChange} className="mt-1 p-2 w-full border rounded-md focus:border-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#22bc1a] transition-colors duration-300" />
                     </div>
                     <div>
                         <Listbox value={userDetails.gender} onChange={handleGenderListbox}>

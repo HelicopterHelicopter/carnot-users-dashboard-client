@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../redux/store";
 import { signInFailure, signInStart, signInSuccess } from "../redux/user/userSlice";
 import { loginUser } from "../utils/api-communicator";
+import toast from "react-hot-toast";
 
 const SignIn = () => {
     const [formData,setFormData] = useState<any>({});
@@ -20,18 +21,20 @@ const SignIn = () => {
     }
 
     const handleSubmit = async (e:FormEvent<HTMLFormElement>)=> {
-        console.log("testing");
         e.preventDefault();
         
         try{
+            toast.loading("Signing In ",{id:"login"});
             dispatch(signInStart());
             const data = await loginUser(formData.username,formData.password);
             if(data){
                 dispatch(signInSuccess(data.userDetails));
                 navigate("/users");
+                toast.success("Signed In Successfully",{id:"login"})
             }
         }catch(e){
             signInFailure(e);
+            toast.error("Error in Signing In",{id:"login"});
         }
     }
 

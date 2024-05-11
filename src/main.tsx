@@ -8,6 +8,7 @@ import axios from 'axios'
 import { Provider } from 'react-redux'
 import { persistor, store } from './redux/store.ts'
 import { PersistGate } from 'redux-persist/integration/react'
+import { Toaster } from 'react-hot-toast'
 
 axios.defaults.baseURL = "http://localhost:5000/api/v1";
 axios.defaults.withCredentials = true;
@@ -18,6 +19,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <PersistGate persistor={persistor}>
         <BrowserRouter>
           <Header />
+          <Toaster position='top-right'/>
           <App />
         </BrowserRouter>
       </PersistGate>
