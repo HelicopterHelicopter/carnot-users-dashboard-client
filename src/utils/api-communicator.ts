@@ -21,10 +21,11 @@ export const loginUser = async (username:string,password:string) => {
     return data;
 }
 
-export const getUsers = async (pageNo:number) => {
+export const getUsers = async (pageNo:number,searchQuery:string) => {
     const res = await axios.get("/users",{
         params:{
-            pageNo:pageNo
+            pageNo:pageNo,
+            search:searchQuery
         }
     });
     if(res.status!==200){
