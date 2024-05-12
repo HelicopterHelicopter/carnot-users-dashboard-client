@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react'
+import { ChangeEvent, FormEvent, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import login from '../assets/login.jpg';
 import { useDispatch, useSelector } from 'react-redux';
@@ -12,7 +12,7 @@ const SignUp = () => {
 
     const [formData,setFormData] = useState<any>({});
 
-    const {loading,error} = useSelector((state:IRootState)=>state.user);
+    const {loading} = useSelector((state:IRootState)=>state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
 

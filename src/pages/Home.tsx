@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getHomePageInsights } from "../utils/api-communicator";
 import CardWrapper from "../components/CardWrapper";
 import { CardsSkeleton } from "../components/Skeletons";
