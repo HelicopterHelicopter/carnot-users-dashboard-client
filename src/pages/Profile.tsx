@@ -4,7 +4,7 @@ import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@h
 import { getDateString } from "../utils/dateUtil";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
-import { updateUserSuccess } from "../redux/user/userSlice";
+import { profilePicUpdateSuccess, updateUserSuccess } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
 
 type UserProfile = {
@@ -60,6 +60,7 @@ const Profile = () => {
                 if (data && data.message === "OK") {
                     setImage(data.profilePicUrl);
                     toast.success("Profile picture update successfully", { id: "upload" });
+                    dispatch(profilePicUpdateSuccess(data.profilePicUrl));
                 }
             }
         } catch (e) {

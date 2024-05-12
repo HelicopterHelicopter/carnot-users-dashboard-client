@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { IRootState } from "../redux/store";
 import { Link } from "react-router-dom";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
+import HomeProfile from "../components/HomeProfile";
 
 const Home = () => {
 
@@ -59,6 +60,10 @@ const Home = () => {
 
                     </div>
 
+                </div>
+                <div className="w-full md:col-span-4">
+                <h2 className="font-lusitana mb-4 text-xl md:text-2xl">Your Profile</h2>
+                    <HomeProfile/>
                 </div>
             </div>
         </main>

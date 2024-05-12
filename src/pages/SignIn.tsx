@@ -28,10 +28,13 @@ const SignIn = () => {
             toast.loading("Signing In ",{id:"login"});
             dispatch(signInStart());
             const data = await loginUser(formData.username,formData.password);
-            if(data){
+            if(data && data.message==="OK"){
                 dispatch(signInSuccess(data.userDetails));
                 navigate("/");
                 toast.success("Signed In Successfully",{id:"login"})
+            }else{
+                dispatch(signInFailure(data.message));
+                toast.error(data.message,{id:"login"});
             }
         }catch(e){
             dispatch(signInFailure(e));

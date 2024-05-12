@@ -6,6 +6,7 @@ import { signInFailure, signInStart, signInSuccess } from '../redux/user/userSli
 import { googleSignin, signUp } from '../utils/api-communicator';
 import { IRootState } from '../redux/store';
 import { useGoogleLogin } from '@react-oauth/google';
+import toast from 'react-hot-toast';
 
 const SignUp = () => {
 
@@ -22,14 +23,22 @@ const SignUp = () => {
     const handleSubmit = async(e:FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         try{
+            toast.loading("Signing up",{id:"signup"});
             dispatch(signInStart());
             const data = await signUp(formData.username,formData.email,formData.password);
-            if(data){
+            if(data && data.message==="OK"){
+                toast.success("Signed up successfully",{id:"signup"});
                 dispatch(signInSuccess(data.userDetails));
                 navigate('/');
+            }else{
+                console.log(data.message);
+                dispatch(signInFailure(data.message));
+
+                toast.error(data.message,{id:"signup"});
             }
         }catch(e){
-            signInFailure(e);
+            dispatch(signInFailure(e));
+            toast.error("Error in signing up",{id:"signup"});
         }
     }
 
