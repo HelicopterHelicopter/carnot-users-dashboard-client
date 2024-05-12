@@ -93,3 +93,13 @@ export const googleSignin = async (access_token:string) => {
     const data = await res.data;
     return data;
 }
+
+export const getHomePageInsights = async () => {
+    const res = await axios.get("/users/insights");
+    if(res.status!==200){
+        throw new Error("Error in getting insights");
+    }
+
+    const data = await res.data;
+    return data;
+}

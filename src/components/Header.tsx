@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/carnotLogo.png";
 import { useState } from "react";
-import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, PowerIcon, UserIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Dialog, DialogPanel } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { IRootState } from "../redux/store";
@@ -69,10 +69,10 @@ const Header = () => {
                         {currentUser ? (
                             <div className="py-6">
                             <Link to={"/profile"} onClick={()=>setMobileMenuOpen(false)} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                                My Profile
+                                <UserIcon className="w-4"/>My Profile
                             </Link>
                             <div onClick={handleLogout} className="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">
-                                Sign Out
+                                <PowerIcon className="w-4"/> Sign Out
                             </div>
                         </div>
                         ) : (<div className="py-6">

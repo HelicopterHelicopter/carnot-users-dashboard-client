@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { IRootState } from "../redux/store";
 import { logout } from "../utils/api-communicator";
 import { signOut } from "../redux/user/userSlice";
+import { PowerIcon, UserIcon } from "@heroicons/react/24/outline";
 
 const ProfileDropdown = () => {
 
@@ -49,9 +50,9 @@ const ProfileDropdown = () => {
             </div>
             {isOpen && (
                 <ul className="absolute right-0 mt-2 bg-white rounded shadow-lg">
-                    <Link to={"/profile"}><li className="py-2 px-4 hover:bg-gray-100 cursor-pointer" onClick={toggleDropdown}>My Profile</li></Link>
-                    <li className="py-2 px-4 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
-                        Logout
+                    <Link to={"/profile"}><li className="py-2 px-4 hover:bg-gray-100 cursor-pointer flex" onClick={toggleDropdown}><UserIcon className="w-4"/>&nbsp;My Profile</li></Link>
+                    <li className="flex py-2 px-4 hover:bg-gray-100 cursor-pointer" onClick={handleLogout}>
+                        <PowerIcon className="w-4"/> Logout
                     </li>
                 </ul>
             )}

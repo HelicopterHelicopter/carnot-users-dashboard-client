@@ -25,7 +25,7 @@ const SignUp = () => {
             const data = await signUp(formData.username,formData.email,formData.password);
             if(data){
                 signInSuccess(data);
-                navigate('/users');
+                navigate('/');
             }
         }catch(e){
             signInFailure(e);

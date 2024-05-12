@@ -36,8 +36,8 @@ const Users = () => {
     }, [currentPage,searchQuery]);
     return (
         <div className="w-full h-screen bg-[#1ABC9C]">
-            <div className="flex w-full items-center justify-between">
-                <h1 className="text-2xl">Users</h1>
+            <div className="flex w-full items-center justify-between px-6 py-3">
+                <h1 className="font-lusitana text-2xl">Users</h1>
             </div>
             <div className="mt-4 flex items-center justify-between gap-2 px-6 md:mt-8">
                 <Search placeholder="Search users..." />

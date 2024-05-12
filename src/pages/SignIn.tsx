@@ -30,7 +30,7 @@ const SignIn = () => {
             const data = await loginUser(formData.username,formData.password);
             if(data){
                 dispatch(signInSuccess(data.userDetails));
-                navigate("/users");
+                navigate("/");
                 toast.success("Signed In Successfully",{id:"login"})
             }
         }catch(e){
@@ -47,7 +47,7 @@ const SignIn = () => {
             console.log(data);
             if(data && data.message==="OK"){
                 dispatch(signInSuccess(data.userDetails));
-                navigate("/users");
+                navigate("/");
             }
         }catch(e){
             signInFailure(e);

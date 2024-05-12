@@ -11,11 +11,11 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Toaster } from 'react-hot-toast'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
-axios.defaults.baseURL = "http://localhost:5000/api/v1";
+axios.defaults.baseURL = "http://localhost:5050/api/v1";
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <GoogleOAuthProvider clientId="261331901458-f36ibbd72r43i6hb7his5g4t9vvc3pp0.apps.googleusercontent.com">
+  <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENTID}>
     <React.StrictMode>
     <Provider store={store}>
       <PersistGate persistor={persistor}>
