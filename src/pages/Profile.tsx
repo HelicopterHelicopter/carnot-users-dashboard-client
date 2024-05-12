@@ -4,6 +4,8 @@ import { Label, Listbox, ListboxButton, ListboxOption, ListboxOptions } from "@h
 import { getDateString } from "../utils/dateUtil";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import { updateUserSuccess } from "../redux/user/userSlice";
+import { useDispatch } from "react-redux";
 
 type UserProfile = {
     username: string,
@@ -29,7 +31,7 @@ const Profile = () => {
         username: ""
     });
 
-
+    const dispatch = useDispatch();
 
     useEffect(() => {
         const getUserDetails = async () => {
@@ -77,6 +79,8 @@ const Profile = () => {
             toast.loading("Updating profile", { id: "update" });
             const data = await updateUserProfile(userDetails);
             if (data) {
+                console.log()
+                dispatch(updateUserSuccess(data.updatedDetails));
                 toast.success("Profile updated successfully", { id: "update" });
             }
 

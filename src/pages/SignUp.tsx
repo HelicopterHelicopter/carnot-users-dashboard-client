@@ -25,7 +25,7 @@ const SignUp = () => {
             dispatch(signInStart());
             const data = await signUp(formData.username,formData.email,formData.password);
             if(data){
-                signInSuccess(data);
+                dispatch(signInSuccess(data.userDetails));
                 navigate('/');
             }
         }catch(e){
@@ -44,7 +44,7 @@ const SignUp = () => {
                 navigate("/");
             }
         }catch(e){
-            signInFailure(e);
+            dispatch(signInFailure(e));
         }
     }
 

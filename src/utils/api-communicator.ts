@@ -13,6 +13,9 @@ export const signUp = async (username:string,email:string,password:string) => {
 
 export const loginUser = async (username:string,password:string) => {
     const res = await axios.post("/auth/login",{userName:username,password});
+    if(res.status===403){
+        throw new Error("Incorrect password");
+    }
     if(res.status!==200){
         throw new Error("Unable to login");
     }

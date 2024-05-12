@@ -34,8 +34,8 @@ const SignIn = () => {
                 toast.success("Signed In Successfully",{id:"login"})
             }
         }catch(e){
-            signInFailure(e);
-            toast.error("Error in Signing In",{id:"login"});
+            dispatch(signInFailure(e));
+            toast.error(e.message,{id:"login"});
         }
     }
 
