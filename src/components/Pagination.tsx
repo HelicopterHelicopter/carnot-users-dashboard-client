@@ -4,6 +4,7 @@ import { Link, useLocation, useSearchParams } from "react-router-dom"
 
 const Pagination = ({ totalPages }: { totalPages: number }) => {
 
+    //@ts-ignore
     const [searchParams, setSearchParams] = useSearchParams();
     const location = useLocation();
 

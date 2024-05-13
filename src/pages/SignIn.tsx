@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import login from '../assets/login.jpg';
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,7 +10,7 @@ import { useGoogleLogin } from "@react-oauth/google";
 
 const SignIn = () => {
     const [formData,setFormData] = useState<any>({});
-    const {loading,error} = useSelector((state:IRootState)=>state.user);
+    const {loading} = useSelector((state:IRootState)=>state.user);
 
     const dispatch = useDispatch();
     const navigate = useNavigate();

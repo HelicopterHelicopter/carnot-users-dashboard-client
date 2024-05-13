@@ -10,6 +10,7 @@ const Users = () => {
     const [users, setUsers] = useState<any[]>([]);
     const [totalPages, setTotalPages] = useState<number>(0);
 
+    //@ts-ignore
     const [searchParams, setSearchParams] = useSearchParams();
     const [loading, setLoading] = useState<boolean>(false);
 
