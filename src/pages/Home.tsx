@@ -52,7 +52,7 @@ const Home = () => {
                             <h4 className="font-lusitana">3. Update your user profile</h4>
                             <Link
                                 to="/users"
-                                className="flex w-1/6 items-center gap-5 self-start rounded-lg bg-[#22bc1a] px-2 py-3 text-sm font-medium text-white transition-colors hover:bg-[#79cf73] md:text-base"
+                                className="flex w-1/4 items-center gap-5 self-start rounded-lg bg-[#22bc1a] px-2 py-3 text-sm font-medium text-white transition-colors hover:bg-[#79cf73] md:text-base"
                             >
                                 <span>View Users</span> <ArrowRightIcon className="w-5 md:w-6" />
                             </Link>
