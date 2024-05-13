@@ -11,7 +11,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { Toaster } from 'react-hot-toast'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
-axios.defaults.baseURL = "http://localhost:5050/api/v1";
+axios.defaults.baseURL = "https://carnot-users-dashboard-backend.onrender.com/api/v1";
 axios.defaults.withCredentials = true;
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
